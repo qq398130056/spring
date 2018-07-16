@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.2.xsd">
+	<bean id="person" class="com.iotek.entity.Person">
+		<property name="id" value="1"></property>
+		<property name="name">
+			<value><![CDATA[<hh>]]></value>
+		</property>
+	</bean>
+
+	<bean id="person2" class="com.iotek.entity.Person">
+		<constructor-arg name="id" value="2"></constructor-arg>
+		<constructor-arg name="name" value="person2"></constructor-arg>
+	</bean>
+
+	<bean id="address" class="com.iotek.entity.Address">
+		<property name="name" value="北京"></property>
+	</bean>
+
+	<bean id="person3" class="com.iotek.entity.Person">
+		<property name="id" value="3"></property>
+		<property name="name" value="person3"></property>
+		<property name="address" ref="address"></property>
+	</bean>
+
+	<bean id="person4" class="com.iotek.entity.Person">
+		<property name="id" value="4"></property>
+		<property name="name" value="person4"></property>
+		<property name="address">
+			<bean class="com.iotek.entity.Address">
+				<property name="name" value="上海"></property>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="car1" class="com.iotek.entity.Car">
+		<property name="name" value="宾利"></property>
+	</bean>
+
+	<bean id="car2" class="com.iotek.entity.Car">
+		<property name="name" value="劳斯莱斯"></property>
+	</bean>
+
+	<bean id="person5" class="com.iotek.entity.Person">
+		<property name="cars">
+			<list>
+				<ref bean="car1" />
+				<ref bean="car2" />
+			</list>
+		</property>
+		<property name="cars_map">
+			<map>
+				<entry key="1" value-ref="car1"></entry>
+				<entry key="2" value-ref="car2"></entry>
+			</map>
+		</property>
+	</bean>
+
+	<util:list id="cars">
+		<ref bean="car1" />
+		<ref bean="car2" />
+	</util:list>
+	<util:map id="cars_map">
+		<entry key="1" value-ref="car1"></entry>
+		<entry key="2" value-ref="car2"></entry>
+	</util:map>
+	<bean id="person6" class="com.iotek.entity.Person">
+		<property name="cars" ref="cars">
+		</property>
+	</bean>
+
+	<bean id="dataSource"
+		class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass" value="com.mysql.jdbc.Driver"></property>
+		<property name="jdbcUrl" value="jdbc:mysql:///day0626"></property>
+		<property name="user" value="root"></property>
+		<property name="password" value=""></property>
+	</bean>
+	
+	<bean id="person7" class="com.iotek.entity.Person" p:address="长沙" p:cars-ref="cars" p:cars_map-ref="cars_map" p:id="6" p:name="person6"></bean>
+</beans>
